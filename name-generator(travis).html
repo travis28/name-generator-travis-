@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffb6c1, #87ceeb);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .flower {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            animation: floating 3s ease-in-out infinite;
+        }
+        .flower::before,
+        .flower::after {
+            content: '🌸';
+            font-size: 30px;
+            position: absolute;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(20deg); }
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            border: 3px solid #ffb6c1;
+            max-width: 500px;
+            width: 90%;
+        }
+        .container::before,
+        .container::after {
+            content: '✿';
+            position: absolute;
+            font-size: 24px;
+            color: #ff69b4;
+        }
+        .container::before {
+            top: 10px;
+            left: 10px;
+        }
+        .container::after {
+            bottom: 10px;
+            right: 10px;
+        }
+        select, button {
+            font-size: 22px;
+            margin: 10px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: 2px solid #ffb6c1;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        select:focus, button:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255,182,193,0.5);
+        }
+        button {
+            background: linear-gradient(45deg, #ffb6c1, #ff69b4);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,182,193,0.4);
+        }
+        #result {
+            font-size: 22px;
+            margin-top: 20px;
+            min-height: 30px;
+            padding: 15px;
+            border: 2px dashed #ffb6c1;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.7);
+        }
+        h1 {
+            font-size: 32px;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-family: 'Arial', cursive;
+        }
+        .corner-flower {
+            position: absolute;
+            font-size: 40px;
+        }
+        .top-left { top: 10px; left: 10px; }
+        .top-right { top: 10px; right: 10px; }
+        .bottom-left { bottom: 10px; left: 10px; }
+        .bottom-right { bottom: 10px; right: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Add floating flowers -->
+    <div class="flower" style="top: 10%; left: 10%;"></div>
+    <div class="flower" style="top: 20%; right: 20%;"></div>
+    <div class="flower" style="bottom: 30%; left: 30%;"></div>
+    <div class="flower" style="bottom: 15%; right: 15%;"></div>
+
+    <div class="container">
+        <!-- Corner flowers -->
+        <span class="corner-flower top-left">🌺</span>
+        <span class="corner-flower top-right">🌸</span>
+        <span class="corner-flower bottom-left">🌸</span>
+        <span class="corner-flower bottom-right">🌺</span>
+
+        <h1>✿ Name Generator ✿</h1>
+        <select id="nameType">
+            <option value="character">Character Names</option>
+            <option value="business">Business Names</option>
+            <option value="product">Product Names</option>
+            <option value="baby">Baby Names</option>
+            <option value="pet">Pet Names</option>
+        </select>
+        <button onclick="generateName()">✿ Generate Name ✿</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const names = {
+            character: ["Aria Nightshade", "Zephyr Storm", "Luna Blackwood", "Atlas Stone", "Echo River", 
+                       "Sage Moonlight", "Aurora Dawn", "Phoenix Flame", "River Song", "Crystal Frost"],
+            business: ["Stellar Solutions", "Emerald Enterprise", "Peak Performance", "Infinite Innovation", 
+                      "Crystal Clear", "Golden Garden", "Flower & Flora", "Rose & Crown", "Petal Power", "Bloom & Grow"],
+            product: ["EcoFlow", "VitaBoost", "ZenStyle", "PurePower", "SmartSync", 
+                     "BloomBright", "FloralFresh", "GardenGlow", "PetalPure", "NaturaNova"],
+            baby: ["Oliver", "Sophia", "Liam", "Emma", "Noah", "Ava", "Elijah", "Isabella", 
+                  "Rose", "Lily", "Violet", "Daisy", "Flora", "Jasmine", "Ivy", "Poppy"],
+            pet: ["Luna", "Max", "Bella", "Charlie", "Rocky", "Molly", "Bailey", "Buddy",
+                 "Daisy", "Lily", "Rose", "Poppy", "Petal", "Blossom", "Flora", "Jasmine"]
+        };
+
+        function generateName() {
+            const type = document.getElementById('nameType').value;
+            const nameList = names[type];
+            const randomName = nameList[Math.floor(Math.random() * nameList.length)];
+            document.getElementById('result').textContent = randomName;
+        }
+
+        // Add floating animation to flowers
+        document.querySelectorAll('.flower').forEach((flower, index) => {
+            flower.style.animationDelay = `${index * 0.5}s`;
+        });
+    </script>
+</body>
+</html>
